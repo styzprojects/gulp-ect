@@ -13,7 +13,7 @@ module.exports = function (opt) {
   return es.map(function (file, callback) {
     //function for compile locals async
     var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
-      
+
       process.nextTick(function () {
         cb(opt.data);
       });
@@ -21,9 +21,9 @@ module.exports = function (opt) {
 
     //compile locals async
     try {
-      var filePath = file.base;
+      var filePath = path.dirname(file.path);
       var fileCwd = file.cwd;
-      var fileName = gutil.replaceExtension(file.path.split(filePath)[1], "");
+      var fileName = gutil.replaceExtension(path.basename(file.path), "");
 
       var relativeBase = path.relative(fileCwd, filePath);
       var relativePath = path.join(relativeBase, fileName);
